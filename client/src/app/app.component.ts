@@ -1,15 +1,25 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Platform, NavController } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
-import { TabsPage } from '../pages/tabs/tabs';
+import { HomePage } from '../pages/home/home';
+import { LicensePage } from '../pages/license/license';
+import { LoginPage } from '../pages/login/login';
+import { ObjectListPage } from '../pages/object/list/object-list';
+import { ObjectRegistrationPage } from '../pages/object/registration/object-registration';
+import { UserListPage } from '../pages/user/list/user-list';
 
 
 @Component({
-  template: `<ion-nav [root]="rootPage"></ion-nav>`
+  templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage = TabsPage;
+  rootPage = HomePage;
+  objectListPage = ObjectListPage;
+  licensePage = LicensePage;
+  objectRegistrationPage = ObjectRegistrationPage;
+  userListPage = UserListPage;
+  @ViewChild('content') nav: NavController
 
   constructor(platform: Platform) {
     platform.ready().then(() => {
@@ -18,5 +28,13 @@ export class MyApp {
       StatusBar.styleDefault();
       Splashscreen.hide();
     });
+  }
+
+  openPage(page) {
+    this.nav.push(page);
+  }
+
+  clearPageStack() {
+    this.nav.popToRoot()
   }
 }
